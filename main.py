@@ -6,7 +6,13 @@ import sys
 from constants import *
 from player import *
 from asteroid import *
-from asteroidfield import AsteroidField  
+from asteroidfield import AsteroidField
+
+class Shot(CircleShape):
+    def __init__(self, x, y, radius):
+        super().__init__(x, y, radius)
+
+
 
 def main():
     dt = 0
