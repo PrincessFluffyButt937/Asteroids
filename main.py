@@ -7,10 +7,7 @@ from constants import *
 from player import *
 from asteroid import *
 from asteroidfield import AsteroidField
-
-class Shot(CircleShape):
-    def __init__(self, x, y, radius):
-        super().__init__(x, y, radius)
+from shoot import *
 
 
 
@@ -23,8 +20,10 @@ def main():
     drawable = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
     Asteroids = pygame.sprite.Group()
+    Shots = pygame.sprite.Group()
     Asteroid.containers = (Asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (Shots, updatable, drawable)
     Asteroid_f = AsteroidField()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     print("Starting Asteroids!")
@@ -38,6 +37,10 @@ def main():
             if player.collision(ast):
                 print("Game over!")
                 sys.exit()
+            for bullet in Shots:
+                if bullet.collision(ast): 
+                    bullet.kill()
+                    ast.split()
         updatable.update(dt)
         pygame.Surface.fill(screen, (0,0,0))
         for d in drawable:
